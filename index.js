@@ -165,6 +165,53 @@ async function addDepartment() {
     })
 };
 
+var deptChoices = [];
+
+async function addRole() {
+
+    checkRole()
+    checkEmployee()
+    checkDepartment()
+
+    inquirer.prompt([
+        {
+            name: "role",
+            type: "input",
+            message: "Enter the Role Title :"
+        },
+
+        {
+            name: "dept",
+            type: "list",
+            message: "In what department would you like to add this role?",
+            choices: deptChoices
+        },
+
+        {
+            name: "salary",
+            type: "number",
+            message: "Enter the role's salary:"
+        },
+
+    ]).then(function (answer) {
+        console.log(`${answer.role}`)
+        var getDeptId = answer.dept.split("-")
+        var query = `INSERT INTO role (title, salary, department_id) VALUES ('${answer.role}','${answer.salary}','${getDeptId[0]}')`;
+        connection.query(query, function (err, res) {
+            console.log(`${answer.role} added!`)
+        });
+        runApp();
+    });
+};
+
+function checkDepartment() {
+    connection.query("SELECT * FROM department", function (err, data) {
+        if (err) throw err;
+        for (i = 0; i < data.length; i++) {
+            deptChoices.push(data[i].id + "-" + data[i].name)
+        }
+    })
+}
 
 
 console.log(`
