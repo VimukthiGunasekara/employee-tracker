@@ -37,7 +37,7 @@ function runApp() {
 
             }
             else if (ans.options === "Add Department") {
-                addDept();
+                addDepartment();
 
             }
             else if (ans.options === "Add Role") {
@@ -124,9 +124,8 @@ async function addEmployee() {
         var query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${answer.firstName}','${answer.lastName}','${getRoleId[0]}','${getReportingToId[0]}')`;
         connection.query(query, function (err, res) {
             console.log(`new employee ${answer.firstName} ${answer.lastName} ${getRoleId[0]} ${getReportingToId[0]} added!`)
-        
+
         });
-        console.log(query);
         runApp();
     });
 };
@@ -149,6 +148,24 @@ function checkEmployee() {
         }
     })
 }
+
+async function addDepartment() {
+    inquirer.prompt([
+        {
+            name: "departmentName",
+            type: "input",
+            message: "Enter New Department Name : "
+        }
+    ]).then(answer => {
+        var query = `INSERT INTO department (name) VALUES ('${answer.departmentName}')`;
+        connection.query(query, function (err, res) {
+            console.log(`${answer.departmentName} was added to departments.`);
+        });
+        runApp();
+    })
+};
+
+
 
 console.log(`
 ╔═══╗─────╔╗──────────────╔═╗╔═╗
