@@ -25,11 +25,11 @@ function runApp() {
                 viewAllEmployees();
             }
             else if (ans.options === "View Department") {
-                viewDepts();
+                viewDepartments();
 
             }
-            else if (ans.options === "View role") {
-                viewrole();
+            else if (ans.options === "View Role") {
+                viewRole();
 
             }
             else if (ans.options === "Add Employee") {
@@ -62,6 +62,16 @@ async function viewAllEmployees() {
     });
 };
 
+async function viewDepartments() {
+    console.log(' ');
+    await connection.query('SELECT id, name AS department FROM department', (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        runApp();
+    })
+};
+
+
 console.log(`
 ╔═══╗─────╔╗──────────────╔═╗╔═╗
 ║╔══╝─────║║──────────────║║╚╝║║
@@ -77,3 +87,4 @@ console.log(`
 ──────────────────────────────────────────────────`);
 
 runApp();
+
