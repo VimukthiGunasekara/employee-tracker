@@ -80,6 +80,76 @@ async function viewRole() {
     })
 };
 
+var roleChoices = [];
+var empChoices = [];
+
+async function addEmployee() {
+    checkRole()
+    checkEmployee()
+    inquirer.prompt([
+        {
+            name: "firstName",
+            type: "input",
+            message: "Enter the  Employee's First Name:",
+            // validate: (firstName) => {
+            //     if (firstName.trim().length <= 30 && !firstName) {
+            //         return true;
+            //     }
+            //     else {
+            //         console.log('The input is invalid. The maximum length of your input should be 30 characters.!');
+            //         return false;
+            //     }
+            // }
+        },
+        {
+            name: "lastName",
+            type: "input",
+            message: "Enter the Employee's Last Name:",
+        },
+        {
+            name: "role",
+            type: "list",
+            message: "Choose the Employee Role:",
+            choices: roleChoices
+        },
+        {
+            name: "manager",
+            type: "list",
+            message: "Choose the Employee's Manager:",
+            choices: empChoices
+        }
+    ]).then(answer => {
+        var getRoleId = answer.role.split("-")
+        var getReportingToId = answer.manager.split("-")
+        var query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${answer.firstName}','${answer.lastName}','${getRoleId[0]}','${getReportingToId[0]}')`;
+        connection.query(query, function (err, res) {
+            console.log(`new employee ${answer.firstName} ${answer.lastName} ${getRoleId[0]} ${getReportingToId[0]} added!`)
+        
+        });
+        console.log(query);
+        runApp();
+    });
+};
+
+function checkRole() {
+
+    connection.query("SELECT * FROM role", function (err, data) {
+        if (err) throw err;
+        for (i = 0; i < data.length; i++) {
+            roleChoices.push(data[i].id + "-" + data[i].title)
+        }
+    })
+}
+
+function checkEmployee() {
+    connection.query("SELECT * FROM employee", function (err, data) {
+        if (err) throw err;
+        for (i = 0; i < data.length; i++) {
+            empChoices.push(data[i].id + "-" + data[i].first_name + " " + data[i].last_name)
+        }
+    })
+}
+
 console.log(`
 ╔═══╗─────╔╗──────────────╔═╗╔═╗
 ║╔══╝─────║║──────────────║║╚╝║║
