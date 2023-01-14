@@ -56,11 +56,9 @@ THEN I am prompted to select an employee to update and their new role and this i
 
 ## 📺 [Mock-Up](#table-of-contents)
 
-![Screenshot](./src/readme_src/desktop-screenshot.png)
+![Video](./assets/images/employee-tracker.gif)
 
-![Video](./src/readme_src/)
-
-### [ Video Link ]()
+### [ Video Link ](https://drive.google.com/file/d/1kCNOWJwrC35S4V4OxxbwnC9CU58ZB6qR/view?usp=share_link)
 
 ## ⚙️ [Installation](#table-of-contents)
 Use your terminal to clone or download or copy the zip file to a directory of your choice. Then open the file in VS Code or whatever editor you use. In VS Code, open the terminal and navigate to Employee Tracker in the root directory. Now you can run the application!
