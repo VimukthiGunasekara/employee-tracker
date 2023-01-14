@@ -22,7 +22,7 @@ function runApp() {
             type: "list",
             message: "What would you like to do?",
             name: "options",
-            choices: ['View All Employees', 'View Department', 'View Role', 'Add Employee', 'Add Department', 'Add Role', 'Update Role']
+            choices: ['View All Employees', 'View Department', 'View Role', 'Add Employee', 'Add Department', 'Add Role', 'Update Role', 'Exit']
         })
         .then(function (ans) {
             console.log(ans);
@@ -52,6 +52,10 @@ function runApp() {
             }
             else if (ans.options === "Update Role") {
                 updateRole();
+
+            }
+            else if (ans.options === "Exit") {
+                connection.end();
 
             } else {
                 connection.end();
